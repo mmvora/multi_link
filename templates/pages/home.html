@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="px-4 py-12 sm:px-6 lg:px-8">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                        <button class="dismiss-btn" onclick="this.parentElement.remove()">x</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <h1 class="text-red-800 text-4xl pb-10">multi_link</h1>
+        {% if user.is_authenticated %}
+            <div class = "mb-10">
+                <p>Username: {{ user.username }}</p>
+                <p>Email: {{ user.email }}</p>
+            </div>
+            <button class="relative flex justify-center px-4 py-2 mr-2 text-sm font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                <a href="{% url 'account_logout' %}">Logout</a>
+            </button>
+        {% else %}
+            <div class="flex">
+                <button class="relative flex justify-center px-4 py-2 mr-2 text-sm font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                        type="button">
+                    <a href="{% url 'account_login' %}">Login</a>
+                </button>
+                <button class="relative flex justify-center px-4 py-2 mr-2 text-sm font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                    <a href="{% url 'account_signup' %}">Signup</a>
+                </button>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}
