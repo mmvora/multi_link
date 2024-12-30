@@ -18,22 +18,34 @@
                 <p>Email: {{ user.email }}</p>
             </div>
             <div class="mb-6">
-                <h2 class="text-xl">Links you've created:</h2>
+                <h2 class="text-xl">Links you've saved:</h2>
                 <ul class="list-inside">
-                    {% for link in user.links.all %}
-                        <li class="m-3">
+                    {% for link in non_deleted_links %}
+                        <li class="flex items-center m-3">
                             <div class="inline-block w-52 overflow-hidden text-nowrap text-ellipsis">
-                                <a href="{{ link.url }}">{{ link.title }}</a>
+                                {% if link.title %}
+                                    <a href="{{ link.url }}"
+                                       class="font-medium text-red-800 hover:underline">{{ link.title }}</a>
+                                {% else %}
+                                    <a href="{{ link.url }}"
+                                       class="font-medium text-red-800 hover:underline">{{ link.url }}</a>
+                                {% endif %}
                             </div>
-                            <button class="inline-block relative justify-center px-1 py-1 ml-2 text-xs font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
-                                <a href="{% url 'link' link_id=link.uuid %}">View</a>
-                            </button>
+                            <div class="inline-block w-52 overflow-hidden text-nowrap text-ellipsis">
+                                {% if link.category %}<p class="font-medium text-blue-800">{{ link.category }}</p>{% endif %}
+                            </div>
+                            <a href="{% url 'link' link_id=link.uuid %}"
+                               class="inline-block relative justify-center px-1 py-1 ml-2 text-xs font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2">View
+                            </a>
+                            <a href="{% url 'link_delete' link_id=link.uuid %}"
+                               class="inline-block relative justify-center px-1 py-1 ml-2 text-xs font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2">Delete
+                            </a>
                         </li>
                     {% endfor %}
                 </ul>
             </div>
             <button class="relative flex justify-center px-4 py-2 mb-2 mr-2 text-sm font-bold text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
-                <a href="{% url 'new_link' %}">Save a new link</a>
+                <a href="{% url 'create_link' %}">Save a new link</a>
             </button>
             <button class="relative flex justify-center px-4 py-2 mr-2 text-sm font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
                 <a href="{% url 'account_logout' %}">Logout</a>

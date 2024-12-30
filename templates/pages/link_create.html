@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="px-4 py-12 sm:px-6 lg:px-8">
+        <h1 class="text-red-800 text-4xl pb-10">Save a new Link</h1>
+        <form method="post" class="mt-8 space-y-6">
+            {% csrf_token %}
+            {{ form.non_field_errors | safe }}
+            <div class="rounded-md shadow-sm">
+                {{ form.url.errors | safe }}
+                <div class = "space-y-2 mb-3">
+                    <label for="url">
+                        <h3 class="text-xl font-medium">URL:</h3>
+                    </label>
+                    {% render_field form.url placeholder="URL" id="url" name="url" type="url" required="True" class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 appearance-none rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %}
+                </div>
+                <div class = "space-y-2 mb-3">
+                    {{ form.title.errors | safe }}
+                    <label for="title">
+                        <h3 class="text-xl font-medium">Title:</h3>
+                    </label>
+                    {% render_field form.title placeholder="title" id="title" name="title" type="text" class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 appearance-none rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %}
+                </div>
+                <div class = "space-y-2 mb-3">
+                    {{ form.description.errors | safe }}
+                    <label for="description">
+                        <h3 class="text-xl font-medium">Description:</h3>
+                    </label>
+                    {% render_field form.description id="description" name="description" type="text" class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 appearance-none rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %}
+                </div>
+                <div class="space-y-2 mb-3">
+                    {{ form.category.errors | safe }}
+                    <label for="category">
+                        <h3 class="text-xl font-medium">Category:</h3>
+                    </label>
+                    {% render_field form.category id="category" name="category" class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 appearance-none rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %}
+                </div>
+                <div class="space-y-2 mb-3">
+                    <label for="custom_category">
+                        <h3 class="text-xl font-medium">Or create a custom category:</h3>
+                    </label>
+                    {% render_field form.custom_category id="custom_category" name="custom_category" class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 appearance-none rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %}
+                </div>
+            </div>
+            <div class="flex">
+                <button type="submit"
+                        class="relative flex justify-center px-4 py-2 mr-2 text-sm font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                    Save
+                </button>
+                <a href="{% url 'home' %}"
+                   class="relative flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

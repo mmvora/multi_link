@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and link.created_by == user %}
         <div class="px-4 py-12 sm:px-6 lg:px-8">
             <div class="flex justify-between gap-2 mb-4">
                 <a href="{% url 'home' %}"
@@ -18,6 +18,10 @@
             <h1 class="text-red-800 text-4xl pb-10">Your Saved Link: {{ link.url }}</h1>
             <div class="space-y-px mt-8 mb-5">
                 <div class="space-y-2 mb-3">
+                    <h3 class="text-xl font-medium">Category:</h3>
+                    {{ link.category }}
+                </div>
+                <div class="space-y-2 mb-3">
                     <h3 class="text-xl font-medium">Title:</h3>
                     {{ link.title }}
                 </div>
@@ -26,6 +30,19 @@
                     {{ link.description }}
                 </div>
             </div>
+            <div class="flex">
+                <button>
+                    <a class="relative flex justify-center px-4 py-2 mr-2 text-sm font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                       href="{% url 'link_edit' link_id=link.uuid %}">Edit</a>
+                </button>
+                <button class="relative flex justify-center px-4 py-2 mr-2 text-sm font-medium text-white bg-red-800 border border-transparent border-solid rounded-md group hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                    <a href="{% url 'link_delete' link_id=link.uuid %}">Delete</a>
+                </button>
+            </div>
+        </div>
+    {% else %}
+        <div class="px-4 py-12 sm:px-6 lg:px-8">
+            <h1 class="text-red-800 text-4xl pb-10">You do not have permission to view this link.</h1>
         </div>
     {% endif %}
 {% endblock content %}
