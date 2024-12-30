@@ -1,4 +1,5 @@
 # This is the MultiLink Codebase
+A basic tool to let you save your favorite links and categorize them!
 
 Built on Django, using TailwindCSS and Webpack. 
 
