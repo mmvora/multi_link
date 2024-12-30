@@ -44,6 +44,7 @@ You will also need to setup a local database of your choice. I personally use `p
 
 ## Start commands:
 Frontend: `npm run start`
+
 Backend: `poetry run python manage.py runserver`
 
 ## Formatting:
